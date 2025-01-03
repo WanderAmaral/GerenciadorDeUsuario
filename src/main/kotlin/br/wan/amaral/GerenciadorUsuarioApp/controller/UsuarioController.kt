@@ -27,6 +27,8 @@ class UsuarioController {
         return "forms-register"
     }
 
+
+
     @PostMapping("/cadastrar")
     fun registerUser(@Validated usuario: Usuario, result: BindingResult): String {
 
