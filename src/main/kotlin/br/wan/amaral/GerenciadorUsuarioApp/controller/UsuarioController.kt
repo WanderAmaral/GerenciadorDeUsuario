@@ -1,0 +1,43 @@
+package br.wan.amaral.GerenciadorUsuarioApp.controller
+
+import br.wan.amaral.GerenciadorUsuarioApp.model.Usuario
+import br.wan.amaral.GerenciadorUsuarioApp.repository.UsuarioRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.bind.BindResult
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+
+@Controller
+class UsuarioController {
+
+    @Autowired
+    lateinit var repository: UsuarioRepository
+
+    @GetMapping("/formulario/cadastro")
+    fun OpenFormRegister(model: Model): String {
+
+        val usuario = Usuario()
+
+        model.addAttribute("usuario", usuario)
+
+        return "forms-register"
+    }
+
+    @PostMapping("/cadastrar")
+    fun registerUser(@Validated usuario: Usuario, result: BindingResult): String {
+
+        if (result.hasErrors()) {
+            return "forms-register"
+        }
+
+
+        println(usuario)
+        repository.save(usuario)
+
+        return  "home"
+    }
+}
