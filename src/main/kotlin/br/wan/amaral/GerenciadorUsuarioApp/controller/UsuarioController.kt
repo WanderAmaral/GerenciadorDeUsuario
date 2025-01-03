@@ -18,7 +18,7 @@ class UsuarioController {
     lateinit var repository: UsuarioRepository
 
     @GetMapping("/formulario/cadastro")
-    fun OpenFormRegister(model: Model): String {
+    fun openFormRegister(model: Model): String {
 
         val usuario = Usuario()
 
@@ -40,6 +40,21 @@ class UsuarioController {
         println(usuario)
         repository.save(usuario)
 
+        return  "redirect:/home"
+    }
+
+    @GetMapping("/home")
+    fun openHome(model: Model): String {
+
+        //Buscando todos os usuario no bd
+        val usuarios = repository.findAll()
+
+        model.addAttribute("usuarios", usuarios)
+
         return  "home"
+    }
+    
+    fun deleteUser(userId: String) {
+    
     }
 }
