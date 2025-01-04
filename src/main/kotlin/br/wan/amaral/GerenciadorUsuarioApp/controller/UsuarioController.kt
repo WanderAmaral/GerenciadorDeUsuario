@@ -65,6 +65,16 @@ class UsuarioController {
         return "forms-edit"
     }
     
+    @PostMapping("/editar/{id}")
+    fun editUser(usuario: Usuario, @PathVariable("id") id: Long): String {
+    
+        usuario.id = id
+        
+        repository.save(usuario)
+        
+        return "redirect:/home"
+    }
+    
     fun deleteUser(userId: String) {
     
     }
